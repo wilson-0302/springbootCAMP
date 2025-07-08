@@ -11,5 +11,5 @@ public interface PostService {
     Map<String, Object> update(Map<String, Object> param);
     Map<String, Object> delete(int id);
     Map<String, Object> detail(int id);
-    Map<String, Object> list();
+    List<Map<String, Object>> list();
 }
