@@ -3,10 +3,7 @@ package com.example.sprbasic2025.controller;
 import com.example.sprbasic2025.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -17,21 +14,21 @@ public class BoardRestController {
 
     final BoardService boardService;
 
-    @RequestMapping("/create")
-    public Map<String, Object> create(@RequestParam Map<String, Object> param){
+    @PostMapping("")
+    public Map<String, Object> create(@RequestBody Map<String, Object> param){
         return boardService.create(param);
     }
-    @RequestMapping("/update")
-    public Map<String, Object> update(@RequestParam Map<String, Object> param){
+    @PutMapping("")
+    public Map<String, Object> update(@RequestBody Map<String, Object> param){
         return boardService.update(param);
     }
-    @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestParam int id){
+    @DeleteMapping ("")
+    public Map<String, Object> delete(@RequestBody Map<String, Object> param){
+        Long id = Long.parseLong(param.get("id").toString());
         return boardService.delete(id);
     }
-
-    @RequestMapping("/detail/{id}")
-    public Map<String, Object> detail(@PathVariable int id){
+    @GetMapping("/detail/{id}")
+    public Map<String, Object> detail(@PathVariable long id){
         return boardService.detail(id);
     }
     @RequestMapping("/list")
