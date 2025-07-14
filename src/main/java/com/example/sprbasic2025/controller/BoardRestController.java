@@ -1,5 +1,6 @@
 package com.example.sprbasic2025.controller;
 
+import com.example.sprbasic2025.dto.BoardDto;
 import com.example.sprbasic2025.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +16,23 @@ public class BoardRestController {
     final BoardService boardService;
 
     @PostMapping("")
-    public Map<String, Object> create(@RequestBody Map<String, Object> param){
+    public BoardDto.CreateResDto create(@RequestBody BoardDto.CreateReqDto param){
         return boardService.create(param);
     }
     @PutMapping("")
-    public Map<String, Object> update(@RequestBody Map<String, Object> param){
-        return boardService.update(param);
+    public void update(@RequestBody BoardDto.UpdateReqDto param){
+        boardService.update(param);
     }
     @DeleteMapping ("")
-    public Map<String, Object> delete(@RequestBody Map<String, Object> param){
-        Long id = Long.parseLong(param.get("id").toString());
-        return boardService.delete(id);
+    public void delete(@RequestBody BoardDto.UpdateReqDto param){
+        boardService.delete(param.getId());
     }
     @GetMapping("/detail/{id}")
-    public Map<String, Object> detail(@PathVariable long id){
+    public BoardDto.DetailResDto detail(@PathVariable long id){
         return boardService.detail(id);
     }
     @RequestMapping("/list")
-    public Map<String, Object> list(){
+    public List<BoardDto.DetailResDto> list(){
         return boardService.list();
     }
 

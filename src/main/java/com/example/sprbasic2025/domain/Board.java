@@ -1,22 +1,16 @@
 package com.example.sprbasic2025.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@EntityListeners(AuditingEntityListener.class)
+@Setter
 @Getter
 @Entity
-public class Board {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //id 자동으로 올라가게
-    Long id;
-
-    @Setter String title;
-    @Setter String content;
-    @Setter String author;
+public class Board extends AuditingField{
+    String title;
+    String content;
+    String author;
 
     protected Board() {}
     private Board(String title, String content, String author) {

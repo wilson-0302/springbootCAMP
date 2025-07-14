@@ -1,6 +1,7 @@
 package com.example.sprbasic2025.service.impl;
 
 import com.example.sprbasic2025.domain.Board;
+import com.example.sprbasic2025.dto.BoardDto;
 import com.example.sprbasic2025.repository.BoardRepository;
 import com.example.sprbasic2025.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -15,62 +16,59 @@ public class BoardServiceImpl implements BoardService {
     final BoardRepository boardRepository;
 
     @Override
-    public Map<String, Object> create(Map<String, Object> param) {
-        String title = param.get("title").toString();
-        String content = param.get("content").toString();
-        String author = param.get("author").toString();
+    public BoardDto.CreateResDto create(BoardDto.CreateReqDto param) {
+        String title = param.getTitle();
+        String content = param.getContent();
+        String author = param.getAuthor();
 
         Board board = Board.of(title, content, author);
         boardRepository.save(board);
 
-        Map<String,Object> map_result = new HashMap<>();
-        map_result.put("code", 200);
-        return map_result;
+        //BoardDto.CreateResDto resDto = new BoardDto.CreateResDto();
+        //resDto.setId(board.getId());
+
+        return BoardDto.CreateResDto.builder().id(board.getId()).build();
     }
 
     @Override
-    public Map<String, Object> update(Map<String, Object> param) {
+    public void update(BoardDto.UpdateReqDto param) {
         int code = 200;
-        long id = Long.parseLong(param.get("id").toString());
-        Board board = boardRepository.findById(id).orElseThrow(() -> new RuntimeException("no data"));
-        if(param.get("title") != null){ board.setTitle((String) param.get("title")); }
-        if(param.get("content") != null){ board.setContent((String) param.get("content")); }
-        if(param.get("author") != null){ board.setAuthor((String) param.get("author")); }
+        long id = param.getId();
+        Board board = boardRepository.findById(param.getId()).orElseThrow(() -> new RuntimeException("no data"));
+        if(param.getTitle() != null){ board.setTitle((String) param.getTitle()); }
+        if(param.getContent() != null){ board.setContent((String) param.getContent()); }
+        if(param.getAuthor() != null){ board.setAuthor((String) param.getAuthor()); }
         boardRepository.save(board);
-
-        Map<String,Object> map_result = new HashMap<>();
-        map_result.put("code", code);
-        return map_result;
     }
 
     @Override
-    public Map<String, Object> delete(long id) {
+    public void delete(long id) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new RuntimeException("no data"));
         boardRepository.delete(board);
-
-        int code = 200;
-        Map<String,Object> map_result = new HashMap<>();
-        map_result.put("code", code);
-        return map_result;
     }
 
-    @Override
-    public Map<String, Object> detail(long id) {
+    public BoardDto.DetailResDto get(long id) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new RuntimeException("no data"));
-
-        int resultCode = 200;
-        Map<String,Object> map_result = new HashMap<>();
-        map_result.put("code", resultCode);
-        map_result.put("board", board);
-        return map_result;
+        return BoardDto.DetailResDto.builder().
+                id(board.getId()).
+                title(board.getTitle()).
+                content(board.getContent()).
+                author(board.getAuthor()).
+                build();
     }
 
     @Override
-    public Map<String, Object> list() {
+    public BoardDto.DetailResDto detail(long id) {
+        return get(id);
+    }
+
+    @Override
+    public List<BoardDto.DetailResDto> list() {
+        List<BoardDto.DetailResDto> resultList = new ArrayList<>();
         List<Board> list = boardRepository.findAll();
-        Map<String,Object> map_result = new HashMap<>();
-        map_result.put("code", 200);
-        map_result.put("list", list);
-        return map_result;
+        for(Board board : list){
+            resultList.add(get(board.getId()));
+        }
+        return resultList;
     }
 }
