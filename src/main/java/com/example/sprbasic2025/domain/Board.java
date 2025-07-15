@@ -1,5 +1,6 @@
 package com.example.sprbasic2025.domain;
 
+import com.example.sprbasic2025.dto.DefaultDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,5 +23,9 @@ public class Board extends AuditingField{
     //이 메서드를 통해서만 데이터 생성
     public static Board of(String title, String content, String author) {
         return new Board(title, content, author);
+    }
+
+    public DefaultDto.CreateResDto toCreateResDto(){
+        return DefaultDto.CreateResDto.builder().id(getId()).build();
     }
 }

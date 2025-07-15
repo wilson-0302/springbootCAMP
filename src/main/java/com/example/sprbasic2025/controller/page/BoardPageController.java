@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/board")
 @Controller
-public class BoardController {
+public class BoardPageController {
     /*
     @RequestMapping("/create")
     public String create() {

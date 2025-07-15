@@ -1,6 +1,7 @@
 package com.example.sprbasic2025.controller;
 
 import com.example.sprbasic2025.dto.BoardDto;
+import com.example.sprbasic2025.dto.DefaultDto;
 import com.example.sprbasic2025.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class BoardRestController {
     final BoardService boardService;
 
     @PostMapping("")
-    public BoardDto.CreateResDto create(@RequestBody BoardDto.CreateReqDto param){
+    public DefaultDto.CreateResDto create(@RequestBody BoardDto.CreateReqDto param){
         return boardService.create(param);
     }
     @PutMapping("")

@@ -1,31 +1,33 @@
 package com.example.sprbasic2025.dto;
 
+import com.example.sprbasic2025.domain.Board;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 public class BoardDto {
-    @Getter @Setter @Builder
+    @Getter @Setter @SuperBuilder
     public static class CreateReqDto {
         String title;
         String content;
         String author;
-    }
-    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class CreateResDto {
-        Long id;
-    }
-    @Getter @Setter @Builder
-    public static class UpdateReqDto {
-        Long id;
-        String title;
-        String content;
-        String author;
-    }
-    @Getter @Setter @Builder //@NoArgsConstructor @AllArgsConstructor
-    public static class DetailResDto {
-        Long id;
-        String title;
-        String content;
-        String author;
+
+        public Board toEntity() {
+            return Board.of(getTitle(), getContent(), getAuthor());
+        }
     }
 
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateReqDto extends DefaultDto.UpdateReqDto {
+        String title;
+        String content;
+        String author;
+    }
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DetailResDto extends DefaultDto.DetailResDto {
+        String title;
+        String content;
+        String author;
+    }
 }
