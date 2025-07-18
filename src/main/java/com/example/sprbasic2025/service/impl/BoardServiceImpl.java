@@ -12,7 +12,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @Service
-public class BoardServiceImpl implements BoardService {
+public class        BoardServiceImpl implements BoardService {
 
     final BoardRepository boardRepository;
 
