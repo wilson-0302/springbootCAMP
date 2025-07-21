@@ -9,4 +9,6 @@ public interface UserMapper {
     UserDto.DetailResDto detail(DefaultDto.DetailReqDto param);
     //목록을 위한 것!
     List<UserDto.DetailResDto> list(UserDto.ListReqDto param);
+    List<UserDto.DetailResDto> pagedList(UserDto.PagedListReqDto param);
+    int pagedListCount(UserDto.PagedListReqDto param);
 }

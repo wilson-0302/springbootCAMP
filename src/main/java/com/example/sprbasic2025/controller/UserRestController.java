@@ -31,7 +31,6 @@ public class UserRestController {
         userService.delete(param);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
     @GetMapping("")
     public ResponseEntity<UserDto.DetailResDto> detail(DefaultDto.DetailReqDto param){
         return ResponseEntity.ok(userService.detail(param));
@@ -40,5 +39,8 @@ public class UserRestController {
     public ResponseEntity<List<UserDto.DetailResDto>> list(UserDto.ListReqDto param){
         return ResponseEntity.ok(userService.list(param));
     }
-
+    @GetMapping("/pagedList")
+    public ResponseEntity<DefaultDto.PagedListResDto> pagedList(UserDto.PagedListReqDto param){
+        return ResponseEntity.ok(userService.pagedList(param));
+    }
 }
