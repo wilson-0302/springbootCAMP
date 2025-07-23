@@ -47,4 +47,8 @@ public class UserRestController {
     public ResponseEntity<List<UserDto.DetailResDto>> scrollList(UserDto.ScrollListReqDto param){
         return ResponseEntity.ok(userService.scrollList(param));
     }
+    @PostMapping("/login")
+    public ResponseEntity<UserDto.LoginResDto> login(@RequestBody UserDto.LoginReqDto param){
+        return ResponseEntity.ok(userService.login(param));
+    }
 }

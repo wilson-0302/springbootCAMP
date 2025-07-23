@@ -6,6 +6,15 @@ import lombok.experimental.SuperBuilder;
 
 public class UserDto {
     @Setter @Getter @Builder
+    public static class LoginReqDto {
+        String username;
+        String password;
+    }
+    @Setter @Getter @Builder
+    public static class LoginResDto {
+        Boolean done;
+    }
+    @Setter @Getter @Builder
     public static class CreateReqDto {
         String username;
         String password;

@@ -5,6 +5,8 @@ import com.example.sprbasic2025.dto.UserDto;
 import java.util.List;
 
 public interface UserMapper {
+    UserDto.DetailResDto username(UserDto.LoginReqDto param);
+    UserDto.DetailResDto login(UserDto.LoginReqDto param);
     //상세 조회를 위한 것
     UserDto.DetailResDto detail(DefaultDto.DetailReqDto param);
     //목록을 위한 것!
